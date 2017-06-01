@@ -36,7 +36,8 @@ var Core = new Vue({
             }else{
                 return false;
             }
-        }
+        },
+        assetsDiff: assetsDiff
     }
 })
 

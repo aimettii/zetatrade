@@ -29,10 +29,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-Route::get('/assets/{path}', function($path){
-    return redirect(assets_diff('/assets/'.$path));
-})->where('path', '(.*)');
-
 Route::get('tests', function(){
     return 'Hello World!!!!!';
 });

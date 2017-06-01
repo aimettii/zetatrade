@@ -1,18 +1,15 @@
 <?php
 
 function assets_diff( $asset ){
-    if(!Config::get('app.assets_diff') || Config::get('app.assets_diff') == Request::getHost()){
+    if(!Config::get('app.assets_diff')){
         return $asset;
     }
-    return '//'.Config::get('app.assets_diff')."$asset";
+
+    return cdnPath(Config::get('app.assets_diff'), $asset);
 }
 
 //// global CDN link helper function
 //function cdn( $asset ){
-//
-//    if(file_exists(public_path().$asset)){
-//        return $asset;
-//    }
 //
 //    // Verify if KeyCDN URLs are present in the config file
 //    if( !Config::get('app.cdn') )
@@ -37,7 +34,7 @@ function assets_diff( $asset ){
 //    return cdnPath( key( $cdns ) , $asset);
 //
 //}
-//
-//function cdnPath($cdn, $asset) {
-//    return  "//" . rtrim($cdn, "/") . "/" . ltrim( $asset, "/");
-//}
+
+function cdnPath($cdn, $asset) {
+    return  "//" . rtrim($cdn, "/") . "/" . ltrim( $asset, "/");
+}
