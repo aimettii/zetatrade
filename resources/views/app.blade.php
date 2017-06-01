@@ -88,7 +88,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #fff;
+            background-color: #222428;
             z-index: 999999998;
             top: 0;
             left: 0;
@@ -139,6 +139,8 @@
     <link href="{{ assets_diff('assets/layouts/layout3/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ assets_diff('assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <link href="css/auth.css" rel="stylesheet" type="text/css" />
+    <link href="css/loader.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
 </head>
 <!-- END HEAD -->

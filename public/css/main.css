@@ -14,17 +14,6 @@ body{
     height: 100%;
 }
 
-.user-login-5 .login-logo {
-    position: absolute;
-    right: 5.3em;
-    top: 1.5em;
-    left: initial;
-}
-
-.user-login-5 {
-    background-color: #fff;
-}
-
 .page-header .page-header-top .page-logo .logo-default{
     margin: 0;
 }

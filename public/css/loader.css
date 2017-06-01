@@ -1,0 +1,7 @@
+#loader svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -120px;
+    margin-left: -120px;
+}
