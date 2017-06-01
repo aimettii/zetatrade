@@ -30,7 +30,7 @@ var Login = function () {
         return $(".login-bg");
     };
     var ib = function () {
-        gb().backstretch([Core.assetsDiff("assets/pages/img/login/bg1.jpg"), Core.assetsDiff("assets/pages/img/login/bg2.jpg"), Core.assetsDiff("assets/pages/img/login/bg3.jpg"]), {
+        gb().backstretch([Core.assetsDiff("assets/pages/img/login/bg1.jpg"), Core.assetsDiff("assets/pages/img/login/bg2.jpg"), Core.assetsDiff("assets/pages/img/login/bg3.jpg")], {
             fade: 1e3,
             duration: 8e3
         })
