@@ -97,7 +97,7 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 <!-- BEGIN OUR SCRIPTS -->
 <script src="//{{ Request::getHost() }}:4444/socket.io/socket.io.js"></script>
-<script src="js/app.js" type="text/javascript"></script>
+<script src="{{ assets_diff('js/app.js') }}" type="text/javascript"></script>
 <!-- END OUR SCRIPTS -->
 </body>
 
