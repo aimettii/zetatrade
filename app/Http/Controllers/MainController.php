@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
-| Broadcast Channels
+| MainController
 |--------------------------------------------------------------------------
 |
 | Первый и последний контроллер обрабатывающий вывод представления(view),
@@ -17,6 +17,7 @@ class MainController extends Controller
 {
     public function __invoke()
     {
+
         return view('app');
     }
 }

@@ -1,4 +1,4 @@
-<div id="main-page" v-show="user || init">
+<main-page inline-template v-if="userData">
     <div class="page-wrapper">
         <div class="page-wrapper-row">
             <div class="page-wrapper-top">
@@ -958,4 +958,4 @@
             </div>
         </div>
     </div>
-</div>
+</main-page>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 
@@ -10,80 +9,13 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <script data-pace-options='{ "ajax": false }' src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
     <style>
-        @keyframes loader {
-            0%, 10%, 100% {
-                width: 80px;
-                height: 80px;
-            }
-            65% {
-                width: 150px;
-                height: 150px;
-            }
+        body{
+            overflow: hidden;
         }
-        @keyframes loaderBlock {
-            0%, 30% {
-                transform: rotate(0);
-            }
-            55% {
-                background-color: #F37272;
-            }
-            100% {
-                transform: rotate(90deg);
-
-            }
+        .pace {
+            display: none;
         }
-        @keyframes loaderBlockInverse {
-            0%, 20% {
-                transform: rotate(0);
-            }
-            55% {
-                background-color: #F37272;
-            }
-            100% {
-                transform: rotate(-90deg);
-            }
-        }
-        .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 80px;
-            height: 80px;
-            transform: translate(-50%, -50%) rotate(45deg) translate3d(0, 0, 0);
-            animation: loader 1.2s infinite ease-in-out;
-            z-index: 999999999;
-        }
-
-        .loader span {
-            position: absolute;
-            display: block;
-            width: 40px;
-            height: 40px;
-            background-color: #EE4040;
-            animation: loaderBlock 1.2s infinite ease-in-out both;
-            z-index: 999999999;
-        }
-
-        .loader span:nth-child(1) {
-             top: 0;
-             left: 0;
-         }
-        .loader span:nth-child(2) {
-             top: 0;
-             right: 0;
-             animation: loaderBlockInverse 1.2s infinite ease-in-out both;
-         }
-        .loader span:nth-child(3) {
-             bottom: 0;
-             left: 0;
-             animation: loaderBlockInverse 1.2s infinite ease-in-out both;
-         }
-        .loader span:nth-child(4) {
-             bottom: 0;
-             right: 0;
-         }
         #loader{
             position: absolute;
             width: 100%;
@@ -93,28 +25,16 @@
             top: 0;
             left: 0;
         }
-    </style>
-    <script>
-        function assetsDiff(asset){
-            @if(!config("app.assets_diff"))
-                return asset;
-            @else
-                return '{{ assets_diff('') }}' + asset
-            @endif
-        }
 
-        Pace.on('start', function(){
-            if(typeof Core != 'undefined'){
-                Core.loader = true;
-            }
-        });
-        Pace.on('done', function(){
-            setTimeout(function(){
-                Core.loader = false;
-                Core.init = false;
-            }, 2000)
-        });
-    </script>
+        #loader svg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -120px;
+            margin-left: -120px;
+        }
+    </style>
+
     <!-- BEGIN LAYOUT FIRST STYLES -->
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
     <!-- END LAYOUT FIRST STYLES -->
@@ -138,20 +58,19 @@
     <link href="{{ assets_diff('assets/layouts/layout3/css/themes/default.min.css') }}" rel="stylesheet" type="text/css" id="style_color" />
     <link href="{{ assets_diff('assets/layouts/layout3/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ assets_diff('assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="css/main.css" rel="stylesheet" type="text/css" />
-    <link href="css/auth.css" rel="stylesheet" type="text/css" />
-    <link href="css/loader.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
 </head>
 <!-- END HEAD -->
 <body>
 
 <div id="core">
-    @include('widgets.loader')
-
-    @include('pages.auth')
-
-    @include('pages.main')
+    <app inline-template>
+        <div>
+            @include('widgets.loaders.global')
+            @include('pages.main')
+            @include('pages.auth')
+        </div>
+    </app>
 </div>
 
 <script src="{{ assets_diff('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
@@ -179,9 +98,6 @@
 <!-- BEGIN OUR SCRIPTS -->
 <script src="//{{ Request::getHost() }}:4444/socket.io/socket.io.js"></script>
 <script src="js/app.js" type="text/javascript"></script>
-<script src="js/core.js" type="text/javascript"></script>
-<script src="js/main.js" type="text/javascript"></script>
-<script src="js/auth.js" type="text/javascript"></script>
 <!-- END OUR SCRIPTS -->
 </body>
 

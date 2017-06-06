@@ -8,8 +8,7 @@ var Core = new Vue({
     methods: {
         userLogout: function () {
             $.get('auth/logout', function(data){
-                Core.user = false;
-                Login.reloadBs();
+                Core.setUser(false);
                 Core.showToast(data.toast);
             })
         },
@@ -17,15 +16,18 @@ var Core = new Vue({
             $.post('auth/login', data)
                 .done( function( data ) {
                     if(data.status == 'success'){
-                        Core.user = data.user;
+                        Core.setUser(data.user);
                     }
                     Core.showToast(data.toast);
                 });
         },
-        getLogin: function() {
+        getAuth: function() {
             $.get('user/get-data', function(data){
-                Core.user = data.user;
+                Core.setUser(data.user);
             })
+        },
+        setUser: function(val) {
+            Core.user = val;
         },
         showToast: function(data) {
             toastr[data.type](data.text, data.title);
@@ -38,14 +40,12 @@ var Core = new Vue({
             }
         },
         assetsDiff: assetsDiff
-    }
-})
+    },
+});
 
 jQuery(document).ready(function () {
 
-    Core.getLogin();
-
-    Login.init();
+    Core.getAuth();
 
     toastr.options = {
         "closeButton": true,

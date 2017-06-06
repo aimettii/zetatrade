@@ -43,7 +43,6 @@ class OrderController extends Controller
 
         $order = OrderService::create();
 
-
         return $order;
     }
 

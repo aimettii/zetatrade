@@ -1,4 +1,4 @@
-var Login = function () {
+var Auth = function () {
     var r = function () {
         var e = $(".login-form");
         e.validate({

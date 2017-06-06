@@ -7,3 +7,30 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// BEGIN GLOBAL MANDATORY STYLES
+@import '../../../public/assets/global/plugins/font-awesome/css/font-awesome.min.css';
+@import '../../../public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css';
+@import '../../../public/assets/global/plugins/bootstrap/css/bootstrap.min.css';
+@import '../../../public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css';
+// END GLOBAL MANDATORY STYLES
+
+// BEGIN THEME GLOBAL STYLES
+@import '../../../public/assets/global/css/components-rounded.min.css';
+@import '../../../public/assets/global/css/plugins.min.css';
+// END THEME GLOBAL STYLES
+
+// BEGIN THEME LAYOUT STYLES
+@import '../../../public/assets/global/plugins/select2/css/select2.min.css';
+@import '../../../public/assets/global/plugins/select2/css/select2-bootstrap.min.css';
+@import '../../../public/assets/pages/css/login-5.min.css';
+@import '../../../public/assets/layouts/layout3/css/layout.min.css';
+@import '../../../public/assets/layouts/layout3/css/themes/default.min.css';
+@import '../../../public/assets/layouts/layout3/css/custom.min.css';
+@import '../../../public/assets/global/plugins/bootstrap-toastr/toastr.min.css';
+//  END THEME LAYOUT STYLES
+
+
+
+
+
