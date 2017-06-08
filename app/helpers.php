@@ -8,6 +8,18 @@ function assets_diff( $asset ){
     return cdnPath(Config::get('app.assets_diff'), $asset);
 }
 
+function assets_diff_js(){
+    $f = 'asset => ';
+
+    if(!Config::get('app.assets_diff')){
+        $f.'asset';
+    }
+
+    $f = $f.cdnPathJs(Config::get('app.assets_diff'));
+
+    return $f;
+}
+
 //// global CDN link helper function
 //function cdn( $asset ){
 //
@@ -34,6 +46,10 @@ function assets_diff( $asset ){
 //    return cdnPath( key( $cdns ) , $asset);
 //
 //}
+
+function cdnPathJs($cdn){
+    return '"//" + rtrim("'.Config::get('app.assets_diff').'", "/") + "/" + ltrim(asset, "/")';
+}
 
 function cdnPath($cdn, $asset) {
     return  "//" . rtrim($cdn, "/") . "/" . ltrim( $asset, "/");

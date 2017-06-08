@@ -1,22 +1,33 @@
+<template>
+    <div style="height: 100%;">
+        <global-loader v-if="globalLoader"></global-loader>
+        <main-page
+                v-if="userData"
+                :user-data.sync="userData"
+        ></main-page>
+        <auth-page
+                v-if="!userData"
+                :user-data.sync="userData"
+        ></auth-page>
+    </div>
+</template>
+
 <script>
+    import GlobalLoader from './widgets/loaders/Global.vue'
     import AuthPage from './pages/Auth.vue'
     import MainPage from './pages/Main.vue'
 
     export default {
-
-        props: ['attributes'],
 
         mounted () {
 
             Pace.on('done', () => {
                 setTimeout(() => {
                     this.globalLoader = false
-                }, 2000)
+                })
             });
 
             this.getUserData();
-
-            console.log(this.attributes);
         },
 
         data () {
@@ -27,6 +38,7 @@
         },
 
         components: {
+            GlobalLoader,
             AuthPage,
             MainPage
         },

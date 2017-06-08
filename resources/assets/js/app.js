@@ -47,25 +47,26 @@ Vue.component('app', require('./components/App.vue'));
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import Echo from "laravel-echo"
+window.Echo = require('laravel-echo');
 
-window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: window.location.hostname + ':4444'
-});
+window.rtrim = function ( str, charlist ) {	// Strip whitespace (or other characters) from the end of a string
+    //
+    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +	  input by: Erkekjetter
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
 
-Vue.mixin({
-    methods: {
-        assetsDiff (asset) {
-            return '//167.114.241.231'+asset;
-        }
-    }
-});
+    charlist = !charlist ? ' \s\xA0' : charlist.replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g, '\$1');
+    var re = new RegExp('[' + charlist + ']+$', 'g');
+    return str.replace(re, '');
+}
 
-window.Core = new Vue({
-    el: '#core'
-});
+window.ltrim = function ( str, charlist ) {	// Strip whitespace (or other characters) from the beginning of a string
+    //
+    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +	  input by: Erkekjetter
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
 
-
-
-
+    charlist = !charlist ? ' \s\xA0' : charlist.replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g, '\$1');
+    var re = new RegExp('^[' + charlist + ']+', 'g');
+    return str.replace(re, '');
+}

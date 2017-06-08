@@ -1,4 +1,4 @@
-<auth-page inline-template v-else>
+<auth-page @user-data inline-template v-else>
     <div class="user-login-5" >
         <div class="row bs-reset">
             <div class="col-md-6 bs-reset mt-login-5-bsfix">

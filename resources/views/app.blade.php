@@ -16,6 +16,11 @@
         .pace {
             display: none;
         }
+
+        #core{
+            height: 100%;
+        }
+
         #loader{
             position: absolute;
             width: 100%;
@@ -58,19 +63,14 @@
     <link href="{{ assets_diff('assets/layouts/layout3/css/themes/default.min.css') }}" rel="stylesheet" type="text/css" id="style_color" />
     <link href="{{ assets_diff('assets/layouts/layout3/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ assets_diff('assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ assets_diff('assets/global/plugins/ladda/ladda-themeless.min.css') }}" rel="stylesheet" type="text/css">
     <!-- END THEME LAYOUT STYLES -->
 </head>
 <!-- END HEAD -->
 <body>
 
 <div id="core">
-    <app inline-template>
-        <div>
-            @include('widgets.loaders.global')
-            @include('pages.main')
-            @include('pages.auth')
-        </div>
-    </app>
+    <app></app>
 </div>
 
 <script src="{{ assets_diff('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
@@ -94,10 +94,63 @@
 <script src="{{ assets_diff('assets/layouts/global/scripts/quick-nav.min.js') }}" type="text/javascript"></script>
 <script src="{{ assets_diff('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 <script src="{{ assets_diff('assets/pages/scripts/ui-toastr.min.js') }}" type="text/javascript"></script>
+<script src="{{ assets_diff('assets/global/plugins/ladda/spin.min.js') }}" type="text/javascript"></script>
+<script src="{{ assets_diff('assets/global/plugins/ladda/ladda.min.js') }}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 <!-- BEGIN OUR SCRIPTS -->
 <script src="//{{ Request::getHost() }}:4444/socket.io/socket.io.js"></script>
-<script src="{{ assets_diff('js/app.js') }}" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
+<script>
+    window.Echo = new Echo({
+        broadcaster: 'socket.io',
+        host: '{{ Request::getHost() }}:4444'
+    });
+
+    toastr.options = {
+        "closeButton": true,
+        "positionClass": "toast-top-right",
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "7000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    Vue.mixin({
+
+        data () {
+            return {
+                csrfToken: '{{ csrf_token() }}',
+                csrfField: '{{ csrf_field() }}',
+                config: {
+                    app: {
+                        name: '{{ config('app.name') }}'
+                    }
+                }
+            }
+        },
+
+        methods: {
+
+            assetsDiff: {!! assets_diff_js() !!},
+
+            showToast: data => toastr[data.type](data.text, data.title),
+
+            hasPrivilege () {
+                return true;
+            }
+
+        }
+
+    });
+
+    window.Core = new Vue({
+        el: '#core'
+    });
+</script>
 <!-- END OUR SCRIPTS -->
 </body>
 
