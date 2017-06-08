@@ -139,8 +139,11 @@
 
             showToast: data => toastr[data.type](data.text, data.title),
 
-            hasPrivilege () {
-                return true;
+            hasPrivilege (p) {
+                if(typeof this.userData.privileges[p] !== 'undefined' && this.userData.privileges[p] !== null)
+                    return this.userData.privileges[p];
+                else
+                    return false;
             }
 
         }

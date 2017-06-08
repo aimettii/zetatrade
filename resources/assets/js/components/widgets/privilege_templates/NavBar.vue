@@ -728,3 +728,11 @@
         <!-- END HEADER MENU -->
     </div>
 </template>
+
+<script>
+    export default{
+        props: [
+            'userData'
+        ]
+    }
+</script>

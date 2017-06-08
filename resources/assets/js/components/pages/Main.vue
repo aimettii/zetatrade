@@ -358,7 +358,9 @@
                         </div>
                     </div>
                     <!-- END HEADER TOP -->
-                    <admin-nav-bar></admin-nav-bar>
+                    <admin-nav-bar
+                            :user-data="userData"
+                    ></admin-nav-bar>
                 </div>
                 <!-- END HEADER -->
             </div>
