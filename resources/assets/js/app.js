@@ -23,13 +23,13 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-window.Pace = require('pace-progress');
-
-Pace.options = {
-    ajax: false
-};
-
-Pace.start();
+// window.Pace = require('pace-progress');
+//
+// Pace.options = {
+//     ajax: false
+// };
+//
+// Pace.start();
 
 /**
  * First we will load all of this project's JavaScript dependencies which

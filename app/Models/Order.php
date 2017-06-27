@@ -7,12 +7,41 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
+    public $with = [
+        'tractor',
+        'trailer',
+        'counterpartie',
+        'border',
+        'phones',
+        'files',
+        'sales',
+        'created_by_user',
+        'complied_by_user'
+    ];
+
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [];
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+
+        foreach ($this->with as $field)
+        {
+            $this->hidden[] = $field."_id";
+        }
+    }
 
     public function tractor(){
         return $this->belongsTo('App\Models\Vehicle');
@@ -30,8 +59,12 @@ class Order extends Model
         return $this->belongsTo('App\Models\Border');
     }
 
-    public function files(){
-        return $this->belongsToMany('App\Models\File', 'order_file');
+    public function created_by_user(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function complied_by_user(){
+        return $this->belongsTo('App\User');
     }
 
     /**
@@ -49,5 +82,12 @@ class Order extends Model
     public function phones()
     {
         return $this->belongsToMany('App\Models\Phone', 'order_phone');
+    }
+
+    /**
+     * Файлы, относящиеся к заказу
+     */
+    public function files(){
+        return $this->belongsToMany('App\Models\File', 'order_file');
     }
 }

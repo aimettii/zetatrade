@@ -19,6 +19,7 @@ Route::get('user/get-data', 'UserController@getUserData');
 
 Route::post('auth/login', 'AuthController@login');
 
+//Только авторизованные пользователи
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('auth/logout', 'AuthController@logout');
@@ -27,10 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('order/get/{orderId?}', 'OrderController@get');
 
-});
+    Route::get('order/search-data', 'OrderController@searchData');
 
-Route::get('tests', function(){
-    return 'Hello World!!!!!';
+    Route::get('services/{service_name}/get', 'ServiceController@get');
 });
 
 

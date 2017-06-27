@@ -13,10 +13,18 @@ namespace App\Http\Controllers;
 |
 */
 
+use App\Models\Booking\BookingDriverLanguages;
+use App\Models\Border;
+use Facades\App\Services\OrderService;
+
 class MainController extends Controller
 {
     public function __invoke()
     {
-        return view('app');
+        return view('app', [
+            'orders' => OrderService::get(),
+            'borders' => Border::all(),
+            'booking_driver_languages' => BookingDriverLanguages::all()
+        ]);
     }
 }

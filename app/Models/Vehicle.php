@@ -14,7 +14,13 @@ class Vehicle extends Model
      */
     protected $guarded = [];
 
+    public function tractorOrders(){
+        return $this->hasMany('App\Models\Order', 'tractor_id');
+    }
 
+    public function trailerOrders(){
+        return $this->hasMany('App\Models\Order', 'trailer_id');
+    }
 
     public function type()
     {

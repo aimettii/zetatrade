@@ -4,7 +4,19 @@
         <main-page
                 v-if="userData"
                 :user-data.sync="userData"
-        ></main-page>
+        >
+            <div slot="admin-nav-bar">
+                <admin-nav-bar
+                        :user-data="userData"
+                ></admin-nav-bar>
+            </div>
+            <div slot="booking-service-portlet">
+                <service-portlet title="booking"></service-portlet>
+            </div>
+            <div slot="epi-service-portlet">
+                <service-portlet title="epi"></service-portlet>
+            </div>
+        </main-page>
         <auth-page
                 v-if="!userData"
                 :user-data.sync="userData"
@@ -16,6 +28,8 @@
     import GlobalLoader from './widgets/loaders/Global.vue'
     import AuthPage from './pages/Auth.vue'
     import MainPage from './pages/Main.vue'
+    import AdminNavBar from './widgets/privilege_templates/NavBar.vue'
+    import ServicePortlet from './widgets/ServicePortlet.vue'
 
     export default {
 
@@ -40,7 +54,9 @@
         components: {
             GlobalLoader,
             AuthPage,
-            MainPage
+            MainPage,
+            AdminNavBar,
+            ServicePortlet
         },
 
         methods: {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Input;
 use Facades\App\Services\OrderService;
@@ -20,7 +21,6 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
-
        $validator = Validator::make($request->all(), [
            'tractor.number' => 'required_without:tractor.id',
            'trailer.number' => 'required_without:trailer.id',
@@ -48,12 +48,22 @@ class OrderController extends Controller
 
     public function get($orderId = null)
     {
-        if($orderId){
-            return Order::find($orderId);
+        return OrderService::get($orderId);
+    }
+
+    public function searchData(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'field' => 'required',
+            'data' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return ['FAIL VALIDATE'];
         }
 
-        $orders = Order::paginate(4, ['*'], 'cur_page');
+        $found = OrderService::searchData();
 
-        return $orders;
+        return $found;
     }
 }

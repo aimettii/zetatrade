@@ -45,20 +45,19 @@ class OrderTest extends TestCase
             'sales' => [
                 [
                     'assortment_id' => 1,
-                    'quantity_codes' => 10
+                    'quantity_codes' => 5
                 ],
                 [
                     'assortment_id' => 3,
-                    'language_driver_id' => 1,
+                    'booking_driver_language_id' => 1,
                     'quantity_cargo' => true,
                     'booking_type_id' => 1,
-                    'booking_on' => date("Y-m-d H:i:s")
+                    'reservation_time' => date("Y-m-d H:i:s")
                 ]
             ],
             'comment' => 'First Comment from Operator',
             'files' => [
-                UploadedFile::fake()->image('test1.pdf'),
-                UploadedFile::fake()->image('test2.pdf')
+                UploadedFile::fake()->image('test6.pdf')
             ]
         ];
 

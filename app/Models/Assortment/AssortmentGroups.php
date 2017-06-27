@@ -12,4 +12,8 @@ class AssortmentGroups extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function assortments(){
+        return $this->hasMany('App\Models\Assortment', 'group_id');
+    }
 }

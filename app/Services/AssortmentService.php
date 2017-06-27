@@ -22,10 +22,10 @@ class AssortmentService extends Kernel
             }elseif(!$booking && $group == 2){
                 $booking = true;
                 $v = Validator::make($a, [
-                    'language_driver_id' => 'required|integer|exists:countries,id',
+                    'booking_driver_language_id' => 'required|integer|exists:booking_driver_languages,id',
                     'quantity_cargo' => 'required|boolean',
                     'booking_type_id' => 'required|integer|exists:booking_types,id',
-                    'booking_on' => 'required|date',
+                    'reservation_time' => 'required|date',
                 ]);
             }else{
                 return false;

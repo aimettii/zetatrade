@@ -6,15 +6,36 @@ use App\Models\Order;
 use App\Models\Phone;
 use App\Models\Sale;
 use App\Models\File;
+use App\Models\Vehicle;
+use App\Models\Counterpartie;
+use App\Models\Assortment\AssortmentGroups;
 use App\Services\Exception\OrderLogException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Auth;
 use Facades\App\Services\VehicleService;
 use Facades\App\Services\CounterpartieService;
+use Facades\App\Services\ResponseService;
 
 
 class OrderService extends Kernel
 {
+
+    public function get($orderId = null) {
+        if($orderId){
+            return Order::find($orderId);
+        }
+
+        $orders = Order::all()->toArray();
+
+        foreach ($orders as &$order){
+            foreach ($order['sales'] as $k => $sale){
+                $order['sales'][strtolower($sale['assortment']['group']['name'])] = $sale;
+                unset($order['sales'][$k]);
+            }
+        }
+
+        return $orders;
+    }
 
     /**
      * Добавить новый заказ в БД, со всеми связями
@@ -61,6 +82,52 @@ class OrderService extends Kernel
         }
 
         return $order->load('phones', 'sales', 'files');
+    }
+
+    public function searchData(){
+        switch ($this->request->field){
+
+            case 'tractor':
+                return Vehicle::where('tractor', 1)->
+                whereRaw("LOWER(number) like '".strtolower($this->request->data)."%'")->get();
+
+            case 'trailer':
+                return Vehicle::where('tractor', 0)->
+                    whereRaw("LOWER(number) like '".strtolower($this->request->data)."%'")->get();
+                break;
+
+            case 'counterpartie':
+                return Counterpartie::whereRaw("LOWER(name) like '".strtolower($this->request->data)."%'")->get();
+                break;
+
+            case 'phone':
+                return Phone::whereRaw("LOWER(number) like '".strtolower($this->request->data)."%'")->get();
+                break;
+        }
+
+        return 1;
+    }
+
+    public function getServiceOrders($service_name){
+        $service = AssortmentGroups::whereRaw("LOWER(name) = '".$service_name."'")->first();
+
+        if(!$service)
+        {
+            return ResponseService::Error("Услуги `$service_name`, не существует");
+        }
+
+        $orders = [];
+
+        foreach ($service->assortments as $assortment){
+            foreach ($assortment->sales as $sale){
+                $new_order = $sale['order'];
+                unset($sale['order']);
+                $new_order['sale'] = $sale;
+                $orders[] = $new_order;
+            }
+        }
+
+        return $orders;
     }
 
     /**
@@ -169,7 +236,7 @@ class OrderService extends Kernel
     }
 
     /**
-     * Обновить `action_log` колонку соотвествующего заказа
+     * Обновить `action_log` столбец соотвествующего заказа
      *
      * @param int $orderId
      * @param array $new_log
